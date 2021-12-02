@@ -32,6 +32,8 @@ for (let c = 0; c < brickColumnCount; c++) {
   }
 }
 
+let score = 0;
+
 function drawBricks() {
   for (let c = 0; c < brickColumnCount; c++) {
     for (let r = 0; r < brickRowCount; r++) {
@@ -71,6 +73,7 @@ function draw() {
   drawBricks();
   drawBall();
   drawPaddle();
+  drawScore();
   collisionDetection();
   x += dx;
   y += dy;
@@ -132,10 +135,22 @@ function collisionDetection() {
         ) {
           dy = -dy;
           b.status = 0;
+          score++;
+          if (score == brickRowCount * brickColumnCount) {
+            alert('You Win');
+            document.location.reload();
+            clearInterval(interval);
+          }
         }
       }
     }
   }
+}
+
+function drawScore() {
+  ctx.font = '16px Arial';
+  ctx.fillStyle = '#0095dd';
+  ctx.fillText('Score: '+score, 8, 20);
 }
 
 document.addEventListener('keydown', keyDownHandler, false);
