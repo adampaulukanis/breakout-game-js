@@ -33,6 +33,7 @@ for (let c = 0; c < brickColumnCount; c++) {
 }
 
 let score = 0;
+let lives = 3;
 
 function drawBricks() {
   for (let c = 0; c < brickColumnCount; c++) {
@@ -68,12 +69,25 @@ function drawPaddle() {
   ctx.closePath();
 }
 
+function drawScore() {
+  ctx.font = '16px Arial';
+  ctx.fillStyle = '#0095dd';
+  ctx.fillText('Score: ' + score, 8, 20);
+}
+
+function drawLives() {
+  ctx.font = '16px Arial';
+  ctx.fillStyle = '#0095dd';
+  ctx.fillText('Lives: ' + lives, canvas.width - 65, 20);
+}
+
 function draw() {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
   drawBricks();
   drawBall();
   drawPaddle();
   drawScore();
+  drawLives();
   collisionDetection();
   x += dx;
   y += dy;
@@ -87,9 +101,17 @@ function draw() {
     if (x > paddleX && x < paddleX + paddleWidth) {
       dy = -dy;
     } else {
-      alert('Game Over');
-      document.location.reload();
-      clearInterval(interval);
+      lives--;
+      if (!lives) {
+        alert('Game Over');
+        document.location.reload();
+      } else {
+        x = canvas.width / 2;
+        y = canvas.height - 30;
+        dx = 2;
+        dy = -2;
+        paddleX = (canvas.width - paddleWidth) / 2;
+      }
     }
   }
 
@@ -104,6 +126,7 @@ function draw() {
       paddleX = 0;
     }
   }
+  requestAnimationFrame(draw);
 }
 
 function keyDownHandler(e) {
@@ -146,7 +169,6 @@ function collisionDetection() {
           if (score == brickRowCount * brickColumnCount) {
             alert('You Win');
             document.location.reload();
-            clearInterval(interval);
           }
         }
       }
@@ -154,14 +176,8 @@ function collisionDetection() {
   }
 }
 
-function drawScore() {
-  ctx.font = '16px Arial';
-  ctx.fillStyle = '#0095dd';
-  ctx.fillText('Score: ' + score, 8, 20);
-}
-
 document.addEventListener('keydown', keyDownHandler, false);
 document.addEventListener('keyup', keyUpHandler, false);
 document.addEventListener('mousemove', mouseMoveHandler, false);
 
-let interval = setInterval(draw, 10);
+draw();
