@@ -7,6 +7,7 @@ Link to [online](https://adampaulukanis.github.io/breakout-game-js/) version.
 
 My laptop is HP Compaq 6710b
 
+```
 OpenBSD 7.0 (GENERIC.MP) #232: Thu Sep 30 14:25:29 MDT 2021
     deraadt@amd64.openbsd.org:/usr/src/sys/arch/amd64/compile/GENERIC.MP
 real mem = 1048248320 (999MB)
@@ -176,3 +177,5 @@ uhidev0: iclass 3/1, 5 report ids
 ums0 at uhidev0 reportid 1: 5 buttons, Z dir
 wsmouse2 at ums0 mux 0
 uhid0 at uhidev0 reportid 5: input=0, output=0, feature=7
+```
+
