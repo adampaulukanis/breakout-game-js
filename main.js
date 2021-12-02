@@ -122,6 +122,13 @@ function keyUpHandler(e) {
   }
 }
 
+function mouseMoveHandler(e) {
+  let relativeX = e.clientX - canvas.offsetLeft;
+  if (relativeX > 0 && relativeX < canvas.width) {
+    paddleX = relativeX - paddleWidth / 2;
+  }
+}
+
 function collisionDetection() {
   for (let c = 0; c < brickColumnCount; c++) {
     for (let r = 0; r < brickRowCount; r++) {
@@ -150,10 +157,11 @@ function collisionDetection() {
 function drawScore() {
   ctx.font = '16px Arial';
   ctx.fillStyle = '#0095dd';
-  ctx.fillText('Score: '+score, 8, 20);
+  ctx.fillText('Score: ' + score, 8, 20);
 }
 
 document.addEventListener('keydown', keyDownHandler, false);
 document.addEventListener('keyup', keyUpHandler, false);
+document.addEventListener('mousemove', mouseMoveHandler, false);
 
 let interval = setInterval(draw, 10);
